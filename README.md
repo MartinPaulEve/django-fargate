@@ -81,9 +81,9 @@ Some comments on this:
 ## Deploying
 
 1. Ensure, in AWS/main.tf and AWS-ECR/main.tf that the region is set correctly as you want it. You should set the same region in your ~/.aws/config file.
-2. Create an Elastic Container Registry to hold your images. This has to be done as a separate first step:
-
-
+2. Create an Elastic Container Registry to hold your images. 
+ 
+This has to be done as a separate first step:
 
     cd AWS-ECR
     terraform init
@@ -95,7 +95,9 @@ Note down the output from this command, which will look something like this:
     terraform_registry_url = "747101050174.dkr.ecr.eu-west-2.amazonaws.com/staging"
 
 3. Edit the Dockerfile in the root to change all references to "djangoTest" to reflect your actual project setup.
-4. Grab a Docker login token:
+4. Grab a Docker login token.
+
+The shell helper can do this for you:
 
 
     python3 -m shell docker-login
@@ -103,18 +105,24 @@ Note down the output from this command, which will look something like this:
 This is a helper utility that I have written that runs the aws CLI command in the background.
 
 
-5. Edit docker/build.sh to change the DOCKER_REGISTRY value to your registry with your account number and your region. You can do this using the helper script:
+5. Edit docker/build.sh to change the DOCKER_REGISTRY value to your registry with your account number and your region. 
+ 
+ 
+You can do this using the helper script:
 
     
     python3 -m shell update-build
 
-6. Build and push your docker image:
+6. Build and push your docker image.
+
+Again, there's a script:
 
 
     ./build.sh
 
 7. Provision the infrastructure!
 
+Run:
 
     cd AWS
     terraform init
@@ -122,7 +130,9 @@ This is a helper utility that I have written that runs the aws CLI command in th
 
 8. Wait a few minutes for this all to apply.
 
-9. Shell into your container. You can either do this by looking up the service and its task ID or by using my provided python script:
+9. Shell into your container. You can either do this by looking up the service and its task ID or by using my provided python script.
+
+The command is:
 
 
     python -m shell shell-app
