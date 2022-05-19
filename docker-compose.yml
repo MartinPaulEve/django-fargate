@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    image: ${DOCKER_REGISTRY}/djangotestpython
+    ports:
+      - "8011:8011"
+    networks:
+      - django-network
+  nginx:
+    build: ./docker/nginx
+    image: ${DOCKER_REGISTRY}/djangotestnginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - django-network
+networks:
+  django-network:
+    name: django-network
