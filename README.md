@@ -84,6 +84,7 @@ Some comments on this:
 2. Create an Elastic Container Registry to hold your images. This has to be done as a separate first step:
 
 
+
     cd AWS-ECR
     terraform init
     terraform apply
